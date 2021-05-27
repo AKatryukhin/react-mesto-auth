@@ -12,7 +12,7 @@ const validators = {
   description: {
     required: (value) => { return value === ''; },
     minLength: (value) => { return value.length < 2; },
-    containNumbers:  (value) => { return !/[0-9]/.test(value);}
+    // containNumbers:  (value) => { return !/[0-9]/.test(value);}
   }
 };
 

@@ -10,6 +10,10 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import { ESC_KEYCODE } from '../utils/constants';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
+
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -164,6 +168,8 @@ React.useEffect(() => {
       <div className='background'>
         <div className='page'>
           <Header />
+          <Switch>
+          <Route path="/main">
           <Main
             cards={cards}
             onEditAvatar={handleEditAvatarClick}
@@ -173,6 +179,14 @@ React.useEffect(() => {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
           />
+          </Route>
+           <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+          </Switch>
           <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -196,6 +210,7 @@ React.useEffect(() => {
             buttonTitle='Да'
           ></PopupWithForm>
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+         
         </div>
       </div>
     </CurrentUserContext.Provider>
