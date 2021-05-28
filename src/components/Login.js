@@ -1,15 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import PopupWithForm from './PopupWithForm.js';
 import { AppContext } from '../contexts/AppContext';
 
-
-function Login({handleLogin}) {
-
+function Login({ handleSubmit }) {
   const [formValues, setFormValues] = useState({
     username: '',
-    password: ''
+    password: '',
   });
 
   const value = React.useContext(AppContext);
@@ -37,17 +33,48 @@ function Login({handleLogin}) {
   //   })
   //   .catch(err => console.log(err));
   // }
-
   return (
-<PopupWithForm
-      // onSubmit={handleSubmit}
-      // name='prof_form'
-      // title='Редактировать профиль'
-      // isOpen={isOpen}
-      // onClose={onClose}
-      // buttonTitle='Сохранить'
-    >
-    </PopupWithForm>
+    <div className='sign'>
+      <h2 className='sign__title'>Вход</h2>
+      <form
+        onSubmit={handleSubmit}
+        className='sign__form'
+        name='sign_form'
+        noValidate
+      >
+        <input
+          type='email'
+          className='sign__input'
+          id='email'
+          name='email'
+          required
+          minLength='2'
+          maxLength='40'
+          placeholder='Email'
+          // value={name}
+          // onChange={handleInputChange}
+        />
+        <input
+          type='password'
+          className='sign__input'
+          id='password'
+          name='password'
+          required
+          minLength='2'
+          maxLength='200'
+          placeholder='Пароль'
+          // value={description}
+          // onChange={handleInputChange}
+        />
+        <button
+          className='sign__submit'
+          type='submit'
+          aria-label='Кнопка отправить'
+        >
+          Войти
+        </button>
+      </form>
+    </div>
   );
 }
 

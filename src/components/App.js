@@ -23,8 +23,6 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-    const [isRegisterPopupOpen, setIsRegisterPopupOpen] =
-    React.useState(true);
   // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -109,9 +107,6 @@ function App() {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
-  function handleRegisterPopupClick() {
-    setIsRegisterPopupOpen(true);
-  }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -177,30 +172,15 @@ function App() {
       <div className='background'>
         <div className='page'>
           <Header />
-          <Register 
-            isOpen={isRegisterPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
+          {/* <Login handleLogin={handleLogin} /> */}
           <Switch>
-            {/* <Route path='/main'>
-              <Main
-                cards={cards}
-                onEditAvatar={handleEditAvatarClick}
-                onEditProfile={handleEditProfileClick}
-                onAddPlace={handleAddPlaceClick}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-              />
-            </Route> */}
             <ProtectedRoute
-              path='/sign-up'
+              path="/sign-up"
               loggedIn={loggedIn}
               component={Register}
             />
             <ProtectedRoute
-              path='/sign-in'
+              path="/main"
               loggedIn={loggedIn}
               component={Main}
               cards={cards}
@@ -211,11 +191,14 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
-            <Route path='/login'>
-              <Login handleLogin={handleLogin} />
+            <Route path="/sign-up">
+            <Register />
+          </Route>
+            <Route path="/sign-in">
+            <Login handleLogin={handleLogin} />
             </Route>
-            <Route exact path='/'>
-              {loggedIn ? <Redirect to='/main' /> : <Redirect to='/login' />}
+            <Route exact path="/">
+              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
             </Route>
             <Footer />
           </Switch>

@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
 
-function Register({ isOpen, onClose, handleSubmit }) {
-
+function Register({ handleSubmit }) {
   const [formValues, setFormValues] = useState({
     username: '',
-    password: ''
+    password: '',
   });
 
   const value = React.useContext(AppContext);
@@ -36,14 +35,14 @@ function Register({ isOpen, onClose, handleSubmit }) {
   //   .catch(err => console.log(err));
   // }
   return (
-      <div className='sign'>
-        <h2 className='sign__title'>Регистрация</h2>
-        <form
-          onSubmit={handleSubmit}
-          className='sign__form'
-          name='sign_form'
-          noValidate
-        >
+    <div className='sign'>
+      <h2 className='sign__title'>Регистрация</h2>
+      <form
+        onSubmit={handleSubmit}
+        className='sign__form'
+        name='sign_form'
+        noValidate
+      >
         <input
           type='email'
           className='sign__input'
@@ -68,20 +67,19 @@ function Register({ isOpen, onClose, handleSubmit }) {
           // value={description}
           // onChange={handleInputChange}
         />
-          <button
-            className='sign__submit'
-            type='submit'
-            aria-label='Кнопка отправить'
-          >
-            Зарегистрироваться
-          </button>
-        </form>
-       <Link className="sign__link" to="/login">Уже зарегистрированы? Войти</Link>
-      </div>
+        <button
+          className='sign__submit'
+          type='submit'
+          aria-label='Кнопка отправить'
+        >
+          Зарегистрироваться
+        </button>
+      </form>
+      <Link className='sign__link' to='/login'>
+        Уже зарегистрированы? Войти
+      </Link>
+    </div>
   );
 }
 
 export default Register;
-
-
-
