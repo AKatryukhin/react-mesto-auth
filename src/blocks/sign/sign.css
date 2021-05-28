@@ -1,0 +1,18 @@
+.sign {
+  margin: 0 auto;
+  width: 358px;
+  background: #000;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, .15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  }
+
+/* @media screen and (max-width: 767px) {
+  .sign {
+    width: 282px;
+    padding: 0 22px 25px;
+  }
+} */

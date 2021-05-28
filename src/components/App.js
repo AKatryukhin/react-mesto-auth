@@ -10,7 +10,7 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import { ESC_KEYCODE } from '../utils/constants';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -22,6 +22,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+    const [isRegisterPopupOpen, setIsRegisterPopupOpen] =
+    React.useState(true);
   // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -106,6 +108,9 @@ function App() {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
+  function handleRegisterPopupClick() {
+    setIsRegisterPopupOpen(true);
+  }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -170,6 +175,11 @@ function App() {
       <div className='background'>
         <div className='page'>
           <Header />
+          <Register 
+            isOpen={isRegisterPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
           <Switch>
             {/* <Route path='/main'>
               <Main
