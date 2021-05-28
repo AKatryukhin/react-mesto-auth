@@ -13,7 +13,7 @@ import { ESC_KEYCODE } from '../utils/constants';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
-
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -79,29 +79,25 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
-
- 
-
-React.useEffect(() => {
- //функция закрытия попапов по Escape
- function handleEscClose(evt) {
-  evt.key === ESC_KEYCODE && closeAllPopups();
-  }
-  
-  //функция закрытия попапов по оверлей
-  function handleOverlayClose(evt) {
-    evt.target.classList.contains('popup_opened') && closeAllPopups();
+  React.useEffect(() => {
+    //функция закрытия попапов по Escape
+    function handleEscClose(evt) {
+      evt.key === ESC_KEYCODE && closeAllPopups();
     }
 
-  window.addEventListener('keydown', handleEscClose);
-  window.addEventListener('click', handleOverlayClose);
+    //функция закрытия попапов по оверлей
+    function handleOverlayClose(evt) {
+      evt.target.classList.contains('popup_opened') && closeAllPopups();
+    }
 
-  return () => {
-    window.removeEventListener('click', handleOverlayClose);
-    window.removeEventListener('keydown', handleEscClose);
+    window.addEventListener('keydown', handleEscClose);
+    window.addEventListener('click', handleOverlayClose);
 
-  };
-}, []);
+    return () => {
+      window.removeEventListener('click', handleOverlayClose);
+      window.removeEventListener('keydown', handleEscClose);
+    };
+  }, []);
 
   //  обработчики для стейтовых переменных
   function handleCardClick(card) {
@@ -163,29 +159,52 @@ React.useEffect(() => {
       });
   }
 
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='background'>
         <div className='page'>
           <Header />
           <Switch>
-          <Route path="/main">
-          <Main
-            cards={cards}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
-          </Route>
-           <Route path="/sign-up">
-            <Register />
-          </Route>
-          <Route path="/sign-in">
-            <Login />
-          </Route>
+            {/* <Route path='/main'>
+              <Main
+                cards={cards}
+                onEditAvatar={handleEditAvatarClick}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+              />
+            </Route> */}
+            <ProtectedRoute
+              path='/sign-up'
+              loggedIn={loggedIn}
+              component={Register}
+            />
+            <ProtectedRoute
+              path='/sign-in'
+              loggedIn={loggedIn}
+              component={Main}
+              cards={cards}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+            <Route path='/login'>
+              <Login handleLogin={handleLogin} />
+            </Route>
+            <Route exact path='/'>
+              {loggedIn ? <Redirect to='/main' /> : <Redirect to='/login' />}
+            </Route>
           </Switch>
           <Footer />
           <EditProfilePopup
@@ -210,7 +229,6 @@ React.useEffect(() => {
             buttonTitle='Да'
           ></PopupWithForm>
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
-         
         </div>
       </div>
     </CurrentUserContext.Provider>
