@@ -74,7 +74,7 @@ function Register({ isOpen, onClose, handleSubmit }) {
             Зарегистрироваться
           </button>
         </form>
-        <Link class="sign__link" to="/login">Уже зарегистрированы? Войти</Link>
+        <Link className="sign__link" to="/login">Уже зарегистрированы? Войти</Link>
       </div>
   );
 }

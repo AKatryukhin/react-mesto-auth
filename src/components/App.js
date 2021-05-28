@@ -215,8 +215,8 @@ function App() {
             <Route exact path='/'>
               {loggedIn ? <Redirect to='/main' /> : <Redirect to='/login' />}
             </Route>
+            <Footer />
           </Switch>
-          <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
