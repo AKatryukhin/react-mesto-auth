@@ -23,7 +23,7 @@ function PopupForSign({
           <button
             className='popup__save'
             type='submit'
-            aria-label='Кнопка отправки'
+            aria-label='Кнопка отправить'
           >
             {buttonTitle}
           </button>
