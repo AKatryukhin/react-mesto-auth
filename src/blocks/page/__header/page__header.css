@@ -5,8 +5,8 @@
 
 @media screen and (max-width: 767px) {
   .page__header {
-    padding: 28px 0 42px;
-    margin: 0 200px 0;
+    padding: 28px 30px 42px;
+    margin: 0 auto;
   }
 }
 
