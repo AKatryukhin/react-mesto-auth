@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import PopupWithForm from './PopupWithForm.js';
+import { AppContext } from '../contexts/AppContext';
+
 
 function Login({handleLogin}) {
 
@@ -9,6 +11,8 @@ function Login({handleLogin}) {
     username: '',
     password: ''
   });
+
+  const value = React.useContext(AppContext);
 
   // const handleChange(e) => {
   //   const { name, value } = e.target;

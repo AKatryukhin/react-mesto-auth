@@ -14,6 +14,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
+import { AppContext } from '../contexts/AppContext';
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -172,6 +173,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+    <AppContext.Provider value={{ loggedIn: loggedIn, handleLogin: handleLogin}}> 
       <div className='background'>
         <div className='page'>
           <Header />
@@ -241,6 +243,7 @@ function App() {
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
         </div>
       </div>
+      </ AppContext.Provider> 
     </CurrentUserContext.Provider>
   );
 }

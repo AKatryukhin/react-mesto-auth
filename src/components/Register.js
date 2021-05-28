@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
+import { AppContext } from '../contexts/AppContext';
 
 function Register({ isOpen, onClose, handleSubmit }) {
 
@@ -9,6 +9,8 @@ function Register({ isOpen, onClose, handleSubmit }) {
     username: '',
     password: ''
   });
+
+  const value = React.useContext(AppContext);
 
   // const handleChange(e) => {
   //   const { name, value } = e.target;
@@ -74,7 +76,7 @@ function Register({ isOpen, onClose, handleSubmit }) {
             Зарегистрироваться
           </button>
         </form>
-        <Link className="sign__link" to="/login">Уже зарегистрированы? Войти</Link>
+       <Link className="sign__link" to="/login">Уже зарегистрированы? Войти</Link>
       </div>
   );
 }
