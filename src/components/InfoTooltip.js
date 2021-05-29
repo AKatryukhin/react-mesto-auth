@@ -26,4 +26,3 @@ function InfoTooltip({
 );
 }
 export default InfoTooltip;
-// isRegist ? {unionyes} : {unionno}

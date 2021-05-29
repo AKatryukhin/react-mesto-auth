@@ -24,6 +24,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+
   // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -107,6 +109,9 @@ function App() {
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+  }
+  function handleInfoTooltipClick() {
+    setIsInfoTooltipOpen(true);
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -222,7 +227,7 @@ function App() {
             buttonTitle='Да'
           ></PopupWithForm>
           <InfoTooltip
-          isOpen={true}
+          isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
           isRegist={false}
           ></InfoTooltip>
