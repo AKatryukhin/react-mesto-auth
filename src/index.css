@@ -59,7 +59,7 @@
 @import url(./blocks/popup/_type/popup_type_prof.css);
 @import url(./blocks/popup/_type/popup_type_confirm.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
-@import url(./blocks/popup/__title-infotool/popup__title-infotool.css);
+@import url(./blocks/popup/__title/_type/popup__title_type_infotool.css);
 @import url(./blocks/popup/__title/_type/popup__title_type_confirm.css);
 @import url(./blocks/popup/__union-image/popup__union-image.css);
 @import url(./blocks/popup/__container-infotool/popup__container-infotool.css);

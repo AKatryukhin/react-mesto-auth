@@ -20,7 +20,7 @@ function InfoTooltip({
         onClick={onClose}
       ></button>
       <img  src={unionyes} className='popup__union-image' alt='Картинка Yes или No'/> 
-      <h2 className='popup__title-infotool'>{isRegist ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
+      <h2 className='popup__title_type_infotool'>{isRegist ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
     </div>
   </section>
 );

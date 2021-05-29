@@ -15,14 +15,14 @@
   @media screen and (max-width: 767px) {
     .popup__container-infotool {
       width: calc(100% - 80px);
-      padding: 25px 22px;
+      padding: 50px 18px;
     }
   }
 
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 425px) {
   .popup__container-infotool {
     width: calc(100% - 40px);
-    padding: 25px 22px;
+    padding: 50px 18px;
   }
 }
