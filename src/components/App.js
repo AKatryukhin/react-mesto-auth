@@ -224,7 +224,7 @@ function App() {
           <InfoTooltip
           isOpen={true}
           onClose={closeAllPopups}
-          isRegist={true}
+          isRegist={false}
           ></InfoTooltip>
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
         </div>
