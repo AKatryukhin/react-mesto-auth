@@ -10,3 +10,7 @@
   line-height: 1.2;
   text-align: center;
 }
+
+.sign__link:hover {
+  opacity: 0.6;
+}

@@ -13,6 +13,7 @@ import { ESC_KEYCODE } from '../utils/constants';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
+import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
 
@@ -172,7 +173,7 @@ function App() {
       <div className='background'>
         <div className='page'>
           <Header />
-          {/* <Login handleLogin={handleLogin} /> */}
+          <Login handleLogin={handleLogin} />
           <Switch>
             <ProtectedRoute
               path="/sign-up"
@@ -191,17 +192,14 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
-            <Route path="/sign-up">
-            <Register />
-          </Route>
             <Route path="/sign-in">
             <Login handleLogin={handleLogin} />
             </Route>
             <Route exact path="/">
               {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
             </Route>
-            <Footer />
           </Switch>
+          <Footer />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
@@ -223,6 +221,11 @@ function App() {
             onClose={closeAllPopups}
             buttonTitle='Да'
           ></PopupWithForm>
+          <InfoTooltip
+          isOpen={true}
+          onClose={closeAllPopups}
+          isRegist={true}
+          ></InfoTooltip>
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
         </div>
       </div>

@@ -9,7 +9,7 @@
   transform: translate(70px, -35px) rotate(-45deg);
 }
 
-.popup__close:hover {
+.popup__close {
   opacity: 0.6;
 }
 
