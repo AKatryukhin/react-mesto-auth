@@ -2,39 +2,40 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
+import * as auth from '../utils/auth';
 
-function Register({ handleSubmit }) {
+const Register = ({ handleSubmit }) => {
   const [formValues, setFormValues] = useState({
     email: '',
-    password: '',
-    message: ''
+    password: ''
   });
 
   const value = React.useContext(AppContext);
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
+      ...formValues,
       [name]: value
     });
   }
 
-  // const handleSubmit(e) => {
-  //   e.preventDefault();
-  //   if (!username || !password){
-  //     return;
-  //   }
-  //   auth.authorize(this.state.username, this.state.password)
-  //   .then((data) => {
-  //     if (data.jwt){
-  //       this.setState({email: '', password: ''} ,() => {
-  //       this.props.handleLogin(data.user.ru_cal_goal.calGoal);
-  //       this.props.history.push('/diary');
-  //       })
-  //     }
-  //   })
-  //   .catch(err => console.log(err));
-  // }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email || !password){
+      return;
+    }
+    auth.authorize(formValues.email, formValues.password)
+    .then((data) => {
+      if (data.jwt){
+        // this.setState({email: '', password: ''} ,() => {
+        // this.props.handleLogin(data.user.ru_cal_goal.calGoal);
+        // this.props.history.push('/diary');
+        })
+      }
+    })
+    .catch(err => console.log(err));
+  }
   return (
     <div className='sign'>
       <h2 className='sign__title'>Регистрация</h2>

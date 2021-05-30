@@ -16,6 +16,7 @@ import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
+import * as auth from '../utils/auth';
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -172,25 +173,25 @@ function App() {
     setLoggedIn(true);
   }
 
-  // tokenCheck = () => {
-  //   if (localStorage.getItem('jwt')){
-  //     let jwt = localStorage.getItem('jwt');
-  //     duckAuth.getContent(jwt).then((res) => {
-  //       if (res){
-  //         let userData = {
-  //           username: res.username,
-  //           email: res.email
-  //         }
-  //         this.setState({
-  //           loggedIn: true,
-  //           userData
-  //         }, () => {
-  //           this.props.history.push("/ducks");
-  //         });
-  //       }
-  //     }); 
-  //   }
-  // }
+function tokenCheck() {
+    if (localStorage.getItem('jwt')){
+      let jwt = localStorage.getItem('jwt');
+      auth.getContent(jwt).then((res) => {
+        if (res){
+          let userData = {
+            username: res.username,
+            email: res.email
+          }
+          this.setState({
+            loggedIn: true,
+            userData
+          }, () => {
+            this.props.history.push("/ducks");
+          });
+        }
+      }); 
+    }
+  }
 
 
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
+import * as auth from '../utils/auth';
 
 function Login({ handleSubmit }) {
   const [formValues, setFormValues] = useState({
     email: '',
-    password: '',
-    message: ''
+    password: ''
   });
 
   const value = React.useContext(AppContext);
