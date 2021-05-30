@@ -4,28 +4,29 @@ import { AppContext } from '../contexts/AppContext';
 
 function Login({ handleSubmit }) {
   const [formValues, setFormValues] = useState({
-    username: '',
+    email: '',
     password: '',
+    message: ''
   });
 
   const value = React.useContext(AppContext);
 
-  // const handleChange(e) => {
-  //   const { name, value } = e.target;
-  //   setState({
-  //     [name]: value
-  //   });
-  // }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormValues({
+      [name]: value
+    });
+  }
 
   // const handleSubmit(e) => {
   //   e.preventDefault();
-  //   if (!username || !password){
+  //   if (!email || !password){
   //     return;
   //   }
-  //   auth.authorize(this.state.username, this.state.password)
+  //   auth.authorize(email, password)
   //   .then((data) => {
   //     if (data.jwt){
-  //       this.setState({email: '', password: ''} ,() => {
+  //       setFormValues({email: '', password: ''} ,() => {
   //       this.props.handleLogin(data.user.ru_cal_goal.calGoal);
   //       this.props.history.push('/diary');
   //       })
@@ -51,8 +52,8 @@ function Login({ handleSubmit }) {
           minLength='2'
           maxLength='40'
           placeholder='Email'
-          // value={name}
-          // onChange={handleInputChange}
+          value={formValues.email}
+          onChange={handleChange}
         />
         <input
           type='password'
@@ -63,8 +64,8 @@ function Login({ handleSubmit }) {
           minLength='2'
           maxLength='200'
           placeholder='Пароль'
-          // value={description}
-          // onChange={handleInputChange}
+          value={formValues.password}
+          onChange={handleChange}
         />
         <button
           className='sign__submit'

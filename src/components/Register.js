@@ -5,18 +5,19 @@ import { AppContext } from '../contexts/AppContext';
 
 function Register({ handleSubmit }) {
   const [formValues, setFormValues] = useState({
-    username: '',
+    email: '',
     password: '',
+    message: ''
   });
 
   const value = React.useContext(AppContext);
 
-  // const handleChange(e) => {
-  //   const { name, value } = e.target;
-  //   setState({
-  //     [name]: value
-  //   });
-  // }
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormValues({
+      [name]: value
+    });
+  }
 
   // const handleSubmit(e) => {
   //   e.preventDefault();
@@ -52,8 +53,8 @@ function Register({ handleSubmit }) {
           minLength='2'
           maxLength='40'
           placeholder='Email'
-          // value={name}
-          // onChange={handleInputChange}
+          value={formValues.email}
+          onChange={handleChange}
         />
         <input
           type='password'
@@ -64,8 +65,8 @@ function Register({ handleSubmit }) {
           minLength='2'
           maxLength='200'
           placeholder='Пароль'
-          // value={description}
-          // onChange={handleInputChange}
+          value={formValues.password}
+          onChange={handleChange}
         />
         <button
           className='sign__submit'

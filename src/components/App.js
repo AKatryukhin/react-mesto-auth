@@ -172,6 +172,27 @@ function App() {
     setLoggedIn(true);
   }
 
+  // tokenCheck = () => {
+  //   if (localStorage.getItem('jwt')){
+  //     let jwt = localStorage.getItem('jwt');
+  //     duckAuth.getContent(jwt).then((res) => {
+  //       if (res){
+  //         let userData = {
+  //           username: res.username,
+  //           email: res.email
+  //         }
+  //         this.setState({
+  //           loggedIn: true,
+  //           userData
+  //         }, () => {
+  //           this.props.history.push("/ducks");
+  //         });
+  //       }
+  //     }); 
+  //   }
+  // }
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <AppContext.Provider value={{ loggedIn: loggedIn, handleLogin: handleLogin}}> 
@@ -180,11 +201,11 @@ function App() {
           <Header />
           <Login handleLogin={handleLogin} />
           <Switch>
-            <ProtectedRoute
+            {/* <ProtectedRoute
               path="/sign-up"
               loggedIn={loggedIn}
               component={Register}
-            />
+            /> */}
             <ProtectedRoute
               path="/main"
               loggedIn={loggedIn}
@@ -199,6 +220,9 @@ function App() {
             />
             <Route path="/sign-in">
             <Login handleLogin={handleLogin} />
+            </Route>
+            <Route path="/sign-up">
+            <Register handleLogin={handleLogin} />
             </Route>
             <Route exact path="/">
               {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
