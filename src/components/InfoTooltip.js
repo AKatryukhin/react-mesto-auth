@@ -1,12 +1,14 @@
 import React from 'react';
 import unionyes from '../images/Union-yes.png';
 import unionno from '../images/Union-no.png';
+import { AppContext } from '../contexts/AppContext';
 
 function InfoTooltip({
   isOpen,
   onClose,
-  isRegist
 }) {
+
+  const value = React.useContext(AppContext);
 
   return (
   <section
@@ -19,8 +21,8 @@ function InfoTooltip({
         aria-label='Кнопка для закрытия'
         onClick={onClose}
       ></button>
-      <img  src={isRegist ? unionyes : unionno}  className='popup__union-image' alt='Картинка Yes или No'/> 
-      <h2 className='popup__title_type_infotool'>{isRegist ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
+      <img  src={value.isRegist ? unionyes : unionno}  className='popup__union-image' alt='Картинка Yes или No'/> 
+      <h2 className='popup__title_type_infotool'>{value.isRegist ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
     </div>
   </section>
 );

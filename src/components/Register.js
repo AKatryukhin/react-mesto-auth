@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppContext } from '../contexts/AppContext';
-import * as auth from '../utils/auth';
+// import { AppContext } from '../contexts/AppContext';
 
 const Register = ({ handleRegister }) => {
   const [formValues, setFormValues] = useState({
@@ -9,7 +8,7 @@ const Register = ({ handleRegister }) => {
     password: ''
   });
 
-  const value = React.useContext(AppContext);
+  // const value = React.useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +23,7 @@ const Register = ({ handleRegister }) => {
     const { email, password } = formValues;
     handleRegister({ email, password });
   };
+  
   return (
     <div className='sign'>
       <h2 className='sign__title'>Регистрация</h2>

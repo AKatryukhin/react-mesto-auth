@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { AppContext } from '../contexts/AppContext';
-import * as auth from '../utils/auth';
 
 function Login({ handleLogin }) {
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
   });
-
-  // const value = React.useContext(AppContext);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -20,20 +16,13 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formValues.email || !formValues.password){
+    const { email, password } = formValues;
+    if (!email || !password){
       return;
     }
-    auth.authorize(formValues.email, formValues.password)
-    .then((data) => {
-      if (data.jwt){
-        setFormValues({email: '', password: ''} ,() => {
-       handleLogin(data.user.ru_cal_goal.calGoal);
-      //  history.push('/main');
-        })
-      }
-    })
-    .catch(err => console.log(err));
-  }
+    handleLogin({ email, password });
+  };
+ 
   return (
     <div className='sign'>
       <h2 className='sign__title'>Вход</h2>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, History } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
@@ -10,13 +10,15 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import { ESC_KEYCODE } from '../utils/constants';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
 import * as auth from '../utils/auth';
+
+
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -31,6 +33,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   const [cards, setCards] = useState([]);
+
+  const history = useHistory(); 
 
   useEffect(() => {
     api
@@ -127,6 +131,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    setIsInfoTooltipOpen(false);
   }
 
   function handleUpdateUser({ name, about }) {
@@ -167,24 +172,48 @@ function App() {
       });
   }
 
+
+  const [isRegist, setIsRegist] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     email: '',
     password: ''
   });
 
-  const handleLogin = () => {
-    setLoggedIn(true);
-  };
-
 const handleRegister = ({ email, password }) => {
- auth.register({ email, password }).then((res) => {
-  console.log(res);   
+ auth.register({ email, password }).then((data) => {
+  setUserData(
+    {
+      email: data.email,
+      password: data.password
+    },
+    setIsRegist(true),
+    handleInfoTooltipClick(),
+    history.push("/signin")
+  );   
     })
     .catch((err) => {
       console.log(err);
+      setIsRegist(false);
+      handleInfoTooltipClick();
     });
-}
+};
+
+const handleLogin = ({ email, password }) => {
+  console.log({ email, password })
+  auth.authorize({ email, password }).then(({ token }) => {
+  //  console.log({ token });
+   setLoggedIn(true);
+   if ({ token }){
+    localStorage.setItem('jwt', { token });
+    history.push('/main');
+    // return data;
+  }})
+    .catch((err) => {
+      console.log(err);
+     });
+ };
+
 
 // function tokenCheck() {
 //     if (localStorage.getItem('jwt')){
@@ -209,11 +238,11 @@ const handleRegister = ({ email, password }) => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <AppContext.Provider value={{ loggedIn: loggedIn, handleLogin: handleLogin}}> 
+    <AppContext.Provider value={{ loggedIn: loggedIn, isRegist: isRegist, handleLogin: handleLogin}}> 
       <div className='background'>
         <div className='page'>
           <Header />
-          <Register handleLogin={handleLogin} handleRegister={handleRegister}/>
+          {/* <Register handleLogin={handleLogin} handleRegister={handleRegister}/> */}
           {/* <Login handleLogin={handleLogin} /> */}
           <Switch>
             {/* <ProtectedRoute
@@ -233,14 +262,15 @@ const handleRegister = ({ email, password }) => {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
-            <Route path="/sign-in">
+            <Route path="/signin">
             <Login handleLogin={handleLogin} />
             </Route>
-            <Route path="/sign-up">
-            <Register handleLogin={handleLogin} />
+            <Route path="/signup">
+            <Register 
+            handleRegister={handleRegister} />
             </Route>
             <Route exact path="/">
-              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+              {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <Footer />
