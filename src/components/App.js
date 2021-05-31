@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, History } from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
@@ -21,18 +21,18 @@ import * as auth from '../utils/auth';
 function App() {
   // переменные состояния, отвечающие за видимость попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+    useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+    useState(false);
+    const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   // переменная состояния, отвечающая за данные пользователя
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getInitialCards()
       .then((cardsData) => {
@@ -70,7 +70,7 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getProfileInfo()
       .then((currentUserData) => {
@@ -82,9 +82,9 @@ function App() {
   }, []);
 
   // переменная состояния, значением которой задается ссылка на карточку
-  const [selectedCard, setSelectedCard] = React.useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     //функция закрытия попапов по Escape
     function handleEscClose(evt) {
       evt.key === ESC_KEYCODE && closeAllPopups();
@@ -167,31 +167,44 @@ function App() {
       });
   }
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    email: '',
+    password: ''
+  });
 
-  function handleLogin() {
+  const handleLogin = () => {
     setLoggedIn(true);
-  }
+  };
 
-function tokenCheck() {
-    if (localStorage.getItem('jwt')){
-      let jwt = localStorage.getItem('jwt');
-      auth.getContent(jwt).then((res) => {
-        if (res){
-          let userData = {
-            username: res.username,
-            email: res.email
-          }
-          this.setState({
-            loggedIn: true,
-            userData
-          }, () => {
-            this.props.history.push("/ducks");
-          });
-        }
-      }); 
-    }
-  }
+const handleRegister = ({ email, password }) => {
+ auth.register({ email, password }).then((res) => {
+  console.log(res);   
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// function tokenCheck() {
+//     if (localStorage.getItem('jwt')){
+//       let jwt = localStorage.getItem('jwt');
+//       auth.getContent(jwt).then((res) => {
+//         if (res){
+//           let userData = {
+//             username: res.username,
+//             email: res.email
+//           }
+//           this.setState({
+//             loggedIn: true,
+//             userData
+//           }, () => {
+//             this.props.history.push("/ducks");
+//           });
+//         }
+//       }); 
+//     }
+//   }
 
 
   return (
@@ -200,7 +213,8 @@ function tokenCheck() {
       <div className='background'>
         <div className='page'>
           <Header />
-          <Login handleLogin={handleLogin} />
+          <Register handleLogin={handleLogin} handleRegister={handleRegister}/>
+          {/* <Login handleLogin={handleLogin} /> */}
           <Switch>
             {/* <ProtectedRoute
               path="/sign-up"

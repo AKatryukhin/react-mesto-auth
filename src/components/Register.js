@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import * as auth from '../utils/auth';
 
-const Register = ({ handleSubmit }) => {
+const Register = ({ handleRegister }) => {
   const [formValues, setFormValues] = useState({
     email: '',
     password: ''
@@ -18,24 +17,13 @@ const Register = ({ handleSubmit }) => {
       ...formValues,
       [name]: value
     });
-  }
-
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email || !password){
-      return;
-    }
-    auth.authorize(formValues.email, formValues.password)
-    .then((data) => {
-      if (data.jwt){
-        // this.setState({email: '', password: ''} ,() => {
-        // this.props.handleLogin(data.user.ru_cal_goal.calGoal);
-        // this.props.history.push('/diary');
-        })
-      }
-    })
-    .catch(err => console.log(err));
-  }
+    const { email, password } = formValues;
+    handleRegister({ email, password });
+  };
   return (
     <div className='sign'>
       <h2 className='sign__title'>Регистрация</h2>
