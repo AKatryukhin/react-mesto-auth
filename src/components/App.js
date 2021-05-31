@@ -182,15 +182,14 @@ function App() {
 
 const handleRegister = ({ email, password }) => {
  auth.register({ email, password }).then((data) => {
-  setUserData(
+   setUserData(
     {
-      email: data.email,
-      password: data.password
-    },
-    setIsRegist(true),
-    handleInfoTooltipClick(),
-    history.push("/signin")
-  );   
+      email: data.data.email
+    
+    }); 
+    setIsRegist(true);
+    handleInfoTooltipClick();
+    history.push("/signin");
     })
     .catch((err) => {
       console.log(err);
@@ -238,7 +237,7 @@ const handleLogin = ({ email, password }) => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <AppContext.Provider value={{ loggedIn: loggedIn, isRegist: isRegist, handleLogin: handleLogin}}> 
+    <AppContext.Provider value={{ userData: userData, loggedIn: loggedIn, isRegist: isRegist, handleLogin: handleLogin}}> 
       <div className='background'>
         <div className='page'>
           <Header />
