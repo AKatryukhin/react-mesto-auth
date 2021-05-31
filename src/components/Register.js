@@ -63,7 +63,7 @@ const Register = ({ handleRegister }) => {
           Зарегистрироваться
         </button>
       </form>
-      <Link className='sign__link' to='/login'>
+      <Link className='sign__link' to='/signin'>
         Уже зарегистрированы? Войти
       </Link>
     </div>

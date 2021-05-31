@@ -227,6 +227,7 @@ function App() {
   const signOut = () => {
     localStorage.removeItem('jwt');
     history.push('/login');
+    setLoggedIn(false);
   }
 
 
@@ -246,6 +247,9 @@ function App() {
             signOut={signOut}
             />
             <Switch>
+            <Route path='/signin'>
+                <Login handleLogin={handleLogin} />
+              </Route>
               <ProtectedRoute
                 path='/main'
                 loggedIn={loggedIn}
@@ -258,9 +262,6 @@ function App() {
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
               />
-              <Route path='/signin'>
-                <Login handleLogin={handleLogin} />
-              </Route>
               <Route path='/signup'>
                 <Register handleRegister={handleRegister} />
               </Route>
