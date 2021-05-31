@@ -199,7 +199,6 @@ function App() {
           localStorage.setItem('jwt', token);
         }
         checkToken();
-        setIsRegist(false);
       })
       .catch((err) => {
         console.log(err);
