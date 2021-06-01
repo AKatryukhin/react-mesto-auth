@@ -1,3 +1,9 @@
+
+.menu-burger {
+  display: none;
+}
+
+
 @media screen and (max-width: 767px) {
   .menu-burger {
     position: relative;
