@@ -246,13 +246,13 @@ function App() {
       >
         <div className='background'>
           <div className='page'>
-            <Header signOut={signOut} />
+            <Header onSignOut={signOut} />
             <Switch>
               <Route path='/signin'>
                 <Login handleLogin={handleLogin} />
               </Route>
               <ProtectedRoute
-                path='/main'
+                exact path='/'
                 loggedIn={loggedIn}
                 component={Main}
                 cards={cards}
@@ -266,8 +266,8 @@ function App() {
               <Route path='/signup'>
                 <Register handleRegister={handleRegister} />
               </Route>
-              <Route exact path='/'>
-                {loggedIn ? <Redirect to='/main' /> : <Redirect to='/signin' />}
+              <Route  path='/'>
+                {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
               </Route>
             </Switch>
             <Footer />

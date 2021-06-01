@@ -4,7 +4,7 @@ import logo from '../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../contexts/AppContext';
 
-function Header({ signOut }) {
+function Header({ onSignOut }) {
   const value = React.useContext(AppContext);
 
   return (
@@ -24,12 +24,12 @@ function Header({ signOut }) {
           </Link>
         </Route>
         <Route path='/signin'>
-          <Link className='header__link' to='signup'>
+          <Link className='header__link' to='/signup'>
             Регистрация
           </Link>
         </Route>
-        <Route path='/main'>
-          <Link onClick={signOut} className='header__link' to='/signin'>
+        <Route exact path='/'>
+          <Link onClick={onSignOut} className='header__link' to='/signin'>
             Выйти
           </Link>
         </Route>
