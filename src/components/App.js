@@ -194,8 +194,8 @@ function App() {
   const handleLogin = ({ email, password }) => {
     auth
       .authorize({ email, password })
-      .then(({token}) => {
-        if ({token}) {
+      .then(({ token }) => {
+        if ({ token }) {
           localStorage.setItem('jwt', token);
         }
         checkToken();
@@ -208,19 +208,23 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  },[]);
-
+  }, []);
 
   const checkToken = () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      auth.getContent(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          history.push('/main'); 
+      auth
+        .getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            history.push('/main');
+            setUserData({ email: res.data.email });
           }
-        }
-      );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -228,8 +232,7 @@ function App() {
     localStorage.removeItem('jwt');
     history.push('/login');
     setLoggedIn(false);
-  }
-
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -243,11 +246,9 @@ function App() {
       >
         <div className='background'>
           <div className='page'>
-            <Header 
-            signOut={signOut}
-            />
+            <Header signOut={signOut} />
             <Switch>
-            <Route path='/signin'>
+              <Route path='/signin'>
                 <Login handleLogin={handleLogin} />
               </Route>
               <ProtectedRoute
