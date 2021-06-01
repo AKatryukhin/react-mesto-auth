@@ -70,3 +70,5 @@
 @import url(./blocks/sign/__input/sign__input.css);
 @import url(./blocks/sign/__submit/sign__submit.css);
 @import url(./blocks/sign/__link/sign__link.css);
+@import url(./blocks/menu-burger/menu-burger.css);
+@import url(./blocks/menu-burger/__toggle/menu-burger__toggle.css);

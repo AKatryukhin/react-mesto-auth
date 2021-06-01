@@ -3,8 +3,8 @@
   height: 40px;
   position: absolute;
   top: -40px;
-  right: -40px;
-  transform: rotate(-45deg);
+  left: 50%;
+  transform: translate(-50%) rotate(-45deg);
 }
 
 
@@ -13,8 +13,7 @@
       width: 30px;
       height: 30px;
       position: absolute;
-      top: -50px;
-      left: 45%;
-      transform: rotate(-45deg);
+      left: 50%;
+      transform: translate(-50%) rotate(-45deg);
   }
 }
