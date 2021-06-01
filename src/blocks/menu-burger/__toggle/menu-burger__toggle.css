@@ -13,9 +13,11 @@
     flex-direction: column;
 
   }
-  /* .menu-burger__toggle:checked ~ .header {
-    margin-top: 142px;
-  } */
+
+  .menu-burger__toggle:checked ~ .header__link-container > span {
+   margin: 0;
+
+  }
 
   .menu-burger__toggle:checked ~ .menu-burger > span { 
     transform: rotate(45deg);
