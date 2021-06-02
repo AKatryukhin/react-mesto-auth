@@ -7,12 +7,12 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     useFormAndValidation();
 
   const { name, link } = values;
-
+  
   function handleSubmit(e) {
     e.preventDefault();
     isValid &&
       onAddPlace({ name, link }, () => {
-        setValues({ link: ''});
+        setValues({ link: '', name: ''});
       });
   }
 

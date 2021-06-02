@@ -19,7 +19,7 @@ function Header({ onSignOut }) {
           <span className='header__user-mail'>{value.userData.email}</span>
         )}
         <Route path='/signup'>
-          <Link className='header__link' to='/signup'>
+          <Link className='header__link' to='/signin'>
             Войти
           </Link>
         </Route>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
-import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 function EditAvatarPopup({
   isOpen,
@@ -8,17 +7,11 @@ function EditAvatarPopup({
   onUpdateAvatar,
 }) 
 
-
 {
   const inputRef = React.useRef();
-  const { values, handleChange, errors, isValid, setValues } =
-useFormAndValidation();
-
-const { avatar } = values;
 
   function handleSubmit(e) {
     e.preventDefault();
-    isValid &&
     onUpdateAvatar(
       {
         avatar: inputRef.current.value,
