@@ -12,20 +12,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     e.preventDefault();
     isValid &&
       onAddPlace({ name, link }, () => {
-        setValues('');
+        setValues({ link: ''});
       });
   }
-
-  // const [name, setName] = React.useState('');
-  // const [link, setLink] = React.useState('');
-
-  // function handleChangeName(evt) {
-  //   setName(evt.target.value);
-  // }
-
-  // function handleChangeLink(evt) {
-  //   setLink(evt.target.value);
-  // }
 
   return (
     <PopupWithForm
@@ -58,7 +47,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           placeholder='Ссылка на картинку'
           required
           onChange={handleChange}
-          value={link}
+          value={link ? link : ''}
         />
         <span className='popup__input-error link-input-error'>{errors.link}</span>
       </fieldset>

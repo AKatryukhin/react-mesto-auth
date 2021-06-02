@@ -15,7 +15,7 @@ function Login({ handleLogin }) {
       return;
     } isValid &&
     handleLogin({ email, password }, () => {
-      setValues('');
+      setValues({});
     });
   };
  

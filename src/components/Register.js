@@ -13,7 +13,7 @@ const Register = ({ handleRegister }) => {
     e.preventDefault();
     isValid &&
     handleRegister({ email, password }, () => {
-      setValues('');
+      setValues({});
   });
   };
 

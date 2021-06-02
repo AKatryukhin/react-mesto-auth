@@ -192,7 +192,7 @@ function App() {
       });
   };
 
-  const handleLogin = ({ email, password }) => {
+  const handleLogin = ({ email, password }, onSuccess) => {
     auth
       .authorize({ email, password })
       .then(({ token }) => {
@@ -200,6 +200,7 @@ function App() {
           localStorage.setItem('jwt', token);
         }
         checkToken();
+        onSuccess();
       })
       .catch((err) => {
         console.log(err);
