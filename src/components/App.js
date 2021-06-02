@@ -266,7 +266,7 @@ function App() {
               <Route path='/signup'>
                 <Register handleRegister={handleRegister} />
               </Route>
-              <Route  path='/'>
+              <Route  path=''>
                 {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
               </Route>
             </Switch>

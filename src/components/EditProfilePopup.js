@@ -1,21 +1,32 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import {useState, useCallback, useEffect} from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 const validators = {
   name: {
-    required: (value) => { return value === ''; },
-    minLength: (value) => { return value.length < 2; },
-    maxLength: (value) => { return value.length > 40; },
+    required: (value) => {
+      return value === '';
+    },
+    minLength: (value) => {
+      return value.length < 2;
+    },
+    maxLength: (value) => {
+      return value.length > 40;
+    },
   },
   description: {
-    required: (value) => { return value === ''; },
-    minLength: (value) => { return value.length < 2; },
-    // containNumbers:  (value) => { return !/[0-9]/.test(value);}
-  }
+    required: (value) => {
+      return value === '';
+    },
+    minLength: (value) => {
+      return value.length < 2;
+    },
+    containNumbers: (value) => {
+      return !/[0-9]/.test(value);
+    },
+  },
 };
-
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   // Подписка на контекст
@@ -23,66 +34,68 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   const [formValues, setFormValues] = useState({
     name: '',
-    description: ''
+    description: '',
   });
 
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    /*jshint -W119*/
-    setFormValues(prevState => ({ ...prevState, [name]: value }));
-    /*jshint +W119*/
-  }, [setFormValues]);
+  const handleInputChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      /*jshint -W119*/
+      setFormValues((prevState) => ({ ...prevState, [name]: value }));
+      /*jshint +W119*/
+    },
+    [setFormValues]
+  );
 
   const { name, description } = formValues;
 
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
-  useEffect((currentUser) => {
+  useEffect(() => {
     if (currentUser) {
       setFormValues({
-        name: currentUser.name,
-        description: currentUser.about
+        name: currentUser.name || '',
+        description: currentUser.about || '',
       });
-  }}, [currentUser]);
+    }
+  }, [currentUser, isOpen]);
 
   const [errors, setErrors] = useState({
     name: {
       required: true,
       minLength: true,
-      maxLength: true
+      maxLength: true,
     },
     description: {
       required: true,
       minLength: true,
-      containNumbers: true
-    }
-    });
+      containNumbers: true,
+    },
+  });
 
-  useEffect(
-    function valideteInputs() {
-      const { name, description } = formValues;
+  useEffect(() => {
+    const { name, description } = formValues;
 
-      const nameValidationResult = Object.keys(validators.name).map(
-        errorKey => {
-          const errorResult = validators.name[errorKey](name);
+    const nameValidationResult = Object.keys(validators.name)
+      .map((errorKey) => {
+        const errorResult = validators.name[errorKey](name);
 
-          return { [errorKey]: errorResult }
-        }
-      ).reduce((acc, el) => ({...acc, ...el}), {});
-
-      const descriptionValidationResult = Object.keys(validators.description).map(
-        errorKey => {
-          const errorResult = validators.description[errorKey](description);
-
-          return { [errorKey]: errorResult }
-        }
-      ).reduce((acc, el) => ({...acc, ...el}), {});
-
-      setErrors({
-        name: nameValidationResult,
-        description: descriptionValidationResult
+        return { [errorKey]: errorResult };
       })
+      .reduce((acc, el) => ({ ...acc, ...el }), {});
 
+    const descriptionValidationResult = Object.keys(validators.description)
+      .map((errorKey) => {
+        const errorResult = validators.description[errorKey](description);
+
+        return { [errorKey]: errorResult };
+      })
+      .reduce((acc, el) => ({ ...acc, ...el }), {});
+
+    setErrors({
+      name: nameValidationResult,
+      description: descriptionValidationResult,
+    });
   }, [formValues, setErrors]);
 
   function handleSubmit(e) {
@@ -93,9 +106,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       about: description,
     });
   }
-
-
-
 
   return (
     <PopupWithForm
@@ -119,17 +129,15 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           value={name}
           onChange={handleInputChange}
         />
-        {
-        errors.name.minLength && 
-        <span className='popup__input-error name-input-error'>min lenght is 2</span>
-        }
-        {
-        errors.name.required && 
-        <span className='popup__input-error name-input-error'>required</span>
-        }
-        {errors.name.maxLength && 
-        <span className='popup__input-error name-input-error'>min lenght is 10</span>
-        }
+        <span className='popup__input-error name-input-error'>
+          {errors.name.minLength
+            ? 'min lenght is 2'
+            : errors.name.required
+            ? `required`
+            : errors.name.maxLength
+            ? 'min lenght is 10'
+            : ''}
+        </span>
         <input
           type='text'
           className='popup__input popup__input_type_descr'
@@ -142,18 +150,15 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           value={description}
           onChange={handleInputChange}
         />
-        {
-          errors.description.minLength && 
-          <span className='popup__input-error about-input-error'>min lenght is 2</span>
-        }
-           {
-          errors.description.required && 
-          <span className='popup__input-error about-input-error'>required</span>
-        }
-           {
-          errors.description.containNumbers && 
-          <span className='popup__input-error about-input-error'>must contain numbers</span>
-        }
+        <span className='popup__input-error name-input-error'>
+          {errors.name.minLength
+            ? 'min lenght is 2'
+            : errors.name.required
+            ? `required`
+            : errors.description.containNumbers
+            ? 'must contain numbers'
+            : ''}
+        </span>
       </fieldset>
     </PopupWithForm>
   );

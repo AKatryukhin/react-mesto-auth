@@ -10,8 +10,9 @@ function ImagePopup({ card, onClose }) {
         ></button>
         <figure className='popup__element-image'>
           <img
-            src={card ? card.link : ''}
-            alt={card ? card.name : ''}
+          // короткая проверка, знак вопроса перед точкой защищает от null и undefined
+            src={card?.link}
+            alt={card?.name}
             className='popup__image'
           />
           <figcaption className='popup__title-image'>
