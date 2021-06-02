@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 function Login({ handleLogin }) {
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: ''
-  });
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value
-    });
-  }
+  const { values, handleChange, errors, isValid, setValues } =
+  useFormAndValidation();
+
+  const { email, password } = values;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = formValues;
+    // const { email, password } = formValues;
     if (!email || !password){
       return;
-    }
-    handleLogin({ email, password });
+    } isValid &&
+    handleLogin({ email, password }, () => {
+      setValues('');
+    });
   };
  
   return (
@@ -41,9 +37,10 @@ function Login({ handleLogin }) {
           minLength='2'
           maxLength='40'
           placeholder='Email'
-          value={formValues.email}
+          value={email || ''}
           onChange={handleChange}
         />
+         <span className='sign__input-error'>{errors.email}</span>
         <input
           type='password'
           className='sign__input'
@@ -53,9 +50,10 @@ function Login({ handleLogin }) {
           minLength='2'
           maxLength='200'
           placeholder='Пароль'
-          value={formValues.password}
+          value={password || ''}
           onChange={handleChange}
         />
+        <span className='sign__input-error'>{errors.password}</span>
         <button
           className='sign__submit'
           type='submit'

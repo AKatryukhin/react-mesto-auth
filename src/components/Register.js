@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 const Register = ({ handleRegister }) => {
-  const [formValues, setFormValues] = useState({
-    email: '',
-    password: ''
-  });
 
+  const { values, handleChange, errors, isValid, setValues } =
+    useFormAndValidation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value
-    });
-  };
-  
+  const { email, password } = values;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = formValues;
-    handleRegister({ email, password });
+    isValid &&
+    handleRegister({ email, password }, () => {
+      setValues('');
+  });
   };
 
   return (
@@ -38,23 +33,25 @@ const Register = ({ handleRegister }) => {
           name='email'
           required
           minLength='2'
-          maxLength='40'
+          maxLength='20'
           placeholder='Email'
-          value={formValues.email}
+          value={email || ''}
           onChange={handleChange}
         />
+        <span className='sign__input-error'>{errors.email}</span>
         <input
           type='password'
           className='sign__input'
           id='password'
           name='password'
           required
-          minLength='2'
-          maxLength='200'
+          minLength='8'
+          maxLength='20'
           placeholder='Пароль'
-          value={formValues.password}
+          value={password || ''}
           onChange={handleChange}
         />
+        <span className='sign__input-error'>{errors.password}</span>
         <button
           className='sign__submit'
           type='submit'
@@ -70,4 +67,4 @@ const Register = ({ handleRegister }) => {
   );
 }
 
-export default Register;
+export default Register

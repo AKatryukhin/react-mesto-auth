@@ -175,13 +175,14 @@ function App() {
     password: '',
   });
 
-  const handleRegister = ({ email, password }) => {
+  const handleRegister = ({ email, password }, onSuccess) => {
     auth
       .register({ email, password })
       .then((data) => {
         setUserData({ email: data.data.email });
         setIsRegist(true);
         handleInfoTooltipClick();
+        onSuccess();
         history.push('/signin');
       })
       .catch((err) => {

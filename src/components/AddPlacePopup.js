@@ -1,27 +1,31 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
+import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
- 
+  const { values, handleChange,  errors, isValid, setValues } =
+    useFormAndValidation();
+
+  const { name, link } = values;
+
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({ name, link },
-      () => {
-        setName('');
-        setLink('');
+    isValid &&
+      onAddPlace({ name, link }, () => {
+        setValues('');
       });
   }
 
-  const [name, setName] = React.useState('');
-  const [link, setLink] = React.useState('');
+  // const [name, setName] = React.useState('');
+  // const [link, setLink] = React.useState('');
 
-  function handleChangeName(evt) {
-    setName(evt.target.value);
-  }
+  // function handleChangeName(evt) {
+  //   setName(evt.target.value);
+  // }
 
-  function handleChangeLink(evt) {
-    setLink(evt.target.value);
-  }
+  // function handleChangeLink(evt) {
+  //   setLink(evt.target.value);
+  // }
 
   return (
     <PopupWithForm
@@ -42,10 +46,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           required
           minLength='2'
           maxLength='30'
-          onChange={handleChangeName}
-          value={name}
+          onChange={handleChange}
+          value={name || ''}
         />
-        <span className='popup__input-error place-input-error'></span>
+        <span className='popup__input-error place-input-error'>{errors.name}</span>
         <input
           type='url'
           className='popup__input popup__input_type_descr'
@@ -53,10 +57,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           name='link'
           placeholder='Ссылка на картинку'
           required
-          onChange={handleChangeLink}
+          onChange={handleChange}
           value={link}
         />
-        <span className='popup__input-error link-input-error'></span>
+        <span className='popup__input-error link-input-error'>{errors.link}</span>
       </fieldset>
     </PopupWithForm>
   );
