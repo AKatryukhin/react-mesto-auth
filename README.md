@@ -16,6 +16,7 @@ https://akatryukhin.github.io/mesto-react/
 Сверстаны дополнительные компоненты (Login, Register, ProtectedRoute, InfoTooltip), адаптированы под мобильные версии.
 Функциональность сайта подключена к имеющемуся бэкенду https://auth.nomoreparties.co/.
 Реализована аутентификация пользователя, авторизация, работа с локальным хранилищем и jwt, встроенная валидация форм.
+https://akatryukhin.github.io/react-mesto-auth/
 
 
 
