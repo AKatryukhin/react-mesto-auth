@@ -17,7 +17,7 @@ const Register = ({ handleRegister }) => {
   };
 
   return (
-    <div className='sign'>
+    <section className='sign'>
       <h2 className='sign__title'>Регистрация</h2>
       <form
         onSubmit={handleSubmit}
@@ -62,7 +62,7 @@ const Register = ({ handleRegister }) => {
       <Link className='sign__link' to='/signin'>
         Уже зарегистрированы? Войти
       </Link>
-    </div>
+    </section>
   );
 };
 

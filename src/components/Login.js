@@ -20,7 +20,7 @@ function Login({ handleLogin }) {
   };
 
   return (
-    <div className='sign'>
+    <section className='sign'>
       <h2 className='sign__title'>Вход</h2>
       <form
         onSubmit={handleSubmit}
@@ -62,7 +62,7 @@ function Login({ handleLogin }) {
           Войти
         </button>
       </form>
-    </div>
+    </section>
   );
 }
 
