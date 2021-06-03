@@ -2,23 +2,23 @@ import React from 'react';
 import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 function Login({ handleLogin }) {
-
   const { values, handleChange, errors, isValid, setValues } =
-  useFormAndValidation();
+    useFormAndValidation();
 
   const { email, password } = values;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // const { email, password } = formValues;
-    if (!email || !password){
+    if (!email || !password) {
       return;
-    } isValid &&
-    handleLogin({ email, password }, () => {
-      setValues({});
-    });
+    }
+    isValid &&
+      handleLogin({ email, password }, () => {
+        setValues({});
+      });
   };
- 
+
   return (
     <div className='sign'>
       <h2 className='sign__title'>Вход</h2>
@@ -40,7 +40,7 @@ function Login({ handleLogin }) {
           value={email || ''}
           onChange={handleChange}
         />
-         <span className='sign__input-error'>{errors.email}</span>
+        <span className='sign__input-error'>{errors.email}</span>
         <input
           type='password'
           className='sign__input'

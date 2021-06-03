@@ -255,7 +255,8 @@ function App() {
                 <Login handleLogin={handleLogin} />
               </Route>
               <ProtectedRoute
-                exact path='/'
+                exact
+                path='/'
                 loggedIn={loggedIn}
                 component={Main}
                 cards={cards}
@@ -269,7 +270,7 @@ function App() {
               <Route path='/signup'>
                 <Register handleRegister={handleRegister} />
               </Route>
-              <Route  path=''>
+              <Route path=''>
                 {loggedIn ? <Redirect to='/' /> : <Redirect to='/signin' />}
               </Route>
             </Switch>

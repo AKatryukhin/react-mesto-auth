@@ -2,30 +2,23 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { useFormAndValidation } from '../hooks/FormAndValidation';
 
-function EditAvatarPopup({
-  isOpen,
-  onClose,
-  onUpdateAvatar,
-}) 
-
-{
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const inputRef = React.useRef();
-  const { values, handleChange, errors, isValid } =
-  useFormAndValidation();
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const { link } = values;
 
   function handleSubmit(e) {
     e.preventDefault();
     isValid &&
-    onUpdateAvatar(
-      {
-        avatar: inputRef.current.value,
-      },
-      () => {
-        inputRef.current.value = '';
-      }
-    );
+      onUpdateAvatar(
+        {
+          avatar: inputRef.current.value,
+        },
+        () => {
+          inputRef.current.value = '';
+        }
+      );
   }
 
   return (
@@ -49,7 +42,9 @@ function EditAvatarPopup({
           required
           onChange={handleChange}
         />
-        <span className='popup__input-error avatar-link-input-error'>{errors.link}</span>
+        <span className='popup__input-error avatar-link-input-error'>
+          {errors.link}
+        </span>
       </fieldset>
     </PopupWithForm>
   );

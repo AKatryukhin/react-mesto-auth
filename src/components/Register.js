@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 const Register = ({ handleRegister }) => {
-
   const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
 
@@ -12,9 +11,9 @@ const Register = ({ handleRegister }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid &&
-    handleRegister({ email, password }, () => {
-      setValues({});
-  });
+      handleRegister({ email, password }, () => {
+        setValues({});
+      });
   };
 
   return (
@@ -65,6 +64,6 @@ const Register = ({ handleRegister }) => {
       </Link>
     </div>
   );
-}
+};
 
-export default Register
+export default Register;

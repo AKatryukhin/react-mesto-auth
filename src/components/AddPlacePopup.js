@@ -3,16 +3,16 @@ import PopupWithForm from './PopupWithForm.js';
 import { useFormAndValidation } from '../hooks/FormAndValidation';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const { values, handleChange,  errors, isValid, setValues } =
+  const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation();
 
   const { name, link } = values;
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     isValid &&
       onAddPlace({ name, link }, () => {
-        setValues({ link: '', name: ''});
+        setValues({ link: '', name: '' });
       });
   }
 
@@ -38,7 +38,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           onChange={handleChange}
           value={name || ''}
         />
-        <span className='popup__input-error place-input-error'>{errors.name}</span>
+        <span className='popup__input-error place-input-error'>
+          {errors.name}
+        </span>
         <input
           type='url'
           className='popup__input popup__input_type_descr'
@@ -49,7 +51,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           onChange={handleChange}
           value={link ? link : ''}
         />
-        <span className='popup__input-error link-input-error'>{errors.link}</span>
+        <span className='popup__input-error link-input-error'>
+          {errors.link}
+        </span>
       </fieldset>
     </PopupWithForm>
   );
