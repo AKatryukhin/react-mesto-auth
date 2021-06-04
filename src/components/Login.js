@@ -9,7 +9,6 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { email, password } = formValues;
     if (!email || !password) {
       return;
     }
