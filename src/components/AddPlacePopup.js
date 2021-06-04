@@ -24,6 +24,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       buttonTitle='Создать'
+      isValid={isValid}
     >
       <fieldset className='popup__fild'>
         <input

@@ -29,6 +29,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={onClose}
       buttonTitle='Сохранить'
+      isValid={isValid}
     >
       <fieldset className='popup__fild'>
         <input

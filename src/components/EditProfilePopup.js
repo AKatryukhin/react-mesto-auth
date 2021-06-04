@@ -40,6 +40,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       buttonTitle='Сохранить'
+      isValid={isValid}
     >
       <fieldset className='popup__fild'>
         <input
