@@ -58,6 +58,7 @@ function Login({ handleLogin }) {
           className='sign__submit'
           type='submit'
           aria-label='Кнопка отправить'
+          disabled={!isValid}
         >
           Войти
         </button>

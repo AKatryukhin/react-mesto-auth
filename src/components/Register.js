@@ -55,6 +55,7 @@ const Register = ({ handleRegister }) => {
           className='sign__submit'
           type='submit'
           aria-label='Кнопка отправить'
+          disabled={!isValid}
         >
           Зарегистрироваться
         </button>
