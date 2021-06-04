@@ -1,6 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
-import { useFormAndValidation } from '../hooks/FormAndValidation';
+import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const inputRef = React.useRef();

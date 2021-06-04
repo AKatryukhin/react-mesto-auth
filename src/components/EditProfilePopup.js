@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { useFormAndValidation } from '../hooks/FormAndValidation';
+import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   // Подписка на контекст
