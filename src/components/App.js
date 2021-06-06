@@ -295,12 +295,12 @@ function App() {
               title='Вы уверены?'
               onClose={closeAllPopups}
               buttonTitle='Да'
-            ></PopupWithForm>
+            />
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
               onClose={closeAllPopups}
               isRegist={false}
-            ></InfoTooltip>
+            />
             <ImagePopup onClose={closeAllPopups} card={selectedCard} />
           </div>
         </div>
