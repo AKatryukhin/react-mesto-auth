@@ -40,7 +40,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
           type='button'
           aria-label='Кнопка для Удаления'
           onClick={handleDeleteClick}
-        ></button>
+        />
         <img
           src={card.link}
           alt={card.name}
@@ -55,7 +55,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
               type='button'
               aria-label='Кнопка для Лайков'
               onClick={handleLikeClick}
-            ></button>
+            />
             <p className='photo__like-total'>{card.likes.length}</p>
           </div>
         </figcaption>
