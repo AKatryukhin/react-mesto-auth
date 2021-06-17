@@ -34,6 +34,13 @@ function App() {
 
   useEffect(() => {
     api
+    .getProfileInfo()
+    .then((currentUserData) => {
+      setCurrentUser(currentUserData);
+    })
+    .catch(err => console.log(err));
+
+    api
       .getInitialCards()
       .then((cardsData) => {
         setCards(cardsData);
@@ -69,17 +76,6 @@ function App() {
         console.log(err);
       });
   }
-
-  useEffect(() => {
-    api
-      .getProfileInfo()
-      .then((currentUserData) => {
-        setCurrentUser(currentUserData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = useState(null);
