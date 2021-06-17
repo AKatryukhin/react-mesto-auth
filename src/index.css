@@ -73,3 +73,5 @@
 @import url(./blocks/sign/__input-error/sign__input-error.css);
 @import url(./blocks/menu-burger/menu-burger.css);
 @import url(./blocks/menu-burger/__toggle/menu-burger__toggle.css);
+@import url(./blocks/prelodaer/preloader.css);
+@import url(./blocks/prelodaer/__circle/preloader__circle.css);

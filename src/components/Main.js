@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Preloader from "./Preloader";
 
 function Main({
   onEditAvatar,
@@ -10,6 +11,7 @@ function Main({
   cards,
   onCardLike,
   onCardDelete,
+  isCardsLoading
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -43,7 +45,12 @@ function Main({
         ></button>
       </section>
       <section className='galery content__galery' aria-label='Фото мест'>
-        {cards.map((card) => {
+
+      {isCardsLoading && (
+          <Preloader />
+        )}
+
+        {!isCardsLoading && cards.map((card) => {
           return (
             <Card
               key={card._id}
