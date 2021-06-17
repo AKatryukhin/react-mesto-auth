@@ -25,6 +25,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
+
+  const [isRegist, setIsRegist] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+  });
+
   // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = useState({});
 
@@ -33,22 +41,24 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    api
-    .getProfileInfo()
-    .then((currentUserData) => {
-      setCurrentUser(currentUserData);
-    })
-    .catch(err => console.log(err));
+    if (loggedIn) {
+      api
+        .getProfileInfo()
+        .then((currentUserData) => {
+          setCurrentUser(currentUserData);
+        })
+        .catch((err) => console.log(err));
 
-    api
-      .getInitialCards()
-      .then((cardsData) => {
-        setCards(cardsData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+      api
+        .getInitialCards()
+        .then((cardsData) => {
+          setCards(cardsData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -164,12 +174,7 @@ function App() {
       });
   }
 
-  const [isRegist, setIsRegist] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-  });
+  
 
   const handleRegister = ({ email, password }, onSuccess) => {
     auth
