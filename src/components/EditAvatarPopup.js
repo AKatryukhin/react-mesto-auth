@@ -4,7 +4,7 @@ import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const inputRef = React.useRef();
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const { values, handleChange, errors,  isValid } = useFormAndValidation();
 
   const { link } = values;
 

@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm.js';
 import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const { values, handleChange, errors, isValid, setValues } =
+  const { values, handleChange, resetForm, errors, isValid, setValues } =
     useFormAndValidation();
 
   const { name, link } = values;
@@ -12,7 +12,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     e.preventDefault();
     isValid &&
       onAddPlace({ name, link }, () => {
-        setValues({ link: '', name: '' });
+        resetForm();
       });
   }
 
