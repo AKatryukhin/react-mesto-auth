@@ -6,7 +6,7 @@ function PopupWithForm({
   buttonTitle,
   children,
   onSubmit,
-  isValid
+  isDisabled = false
 }) {
   return (
     <section
@@ -31,7 +31,7 @@ function PopupWithForm({
             className='popup__save'
             type='submit'
             aria-label='Кнопка Сохранить'
-            disabled={!isValid}
+            disabled={isDisabled}
           >
             {buttonTitle}
           </button>

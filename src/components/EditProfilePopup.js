@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isSending }) {
   // Подписка на контекст
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues } =
@@ -39,8 +39,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       title='Редактировать профиль'
       isOpen={isOpen}
       onClose={onClose}
-      buttonTitle='Сохранить'
       isValid={isValid}
+      buttonTitle={isSending ? "Сохранение..." : "Сохранить"}
+      isDisabled={!isValid || isSending}
     >
       <fieldset className='popup__fild'>
         <input

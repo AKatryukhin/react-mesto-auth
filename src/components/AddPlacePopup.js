@@ -2,8 +2,8 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const { values, handleChange, resetForm, errors, isValid, setValues } =
+function AddPlacePopup({ isOpen, onClose, onAddPlace, isSending }) {
+  const { values, handleChange, resetForm, errors, isValid} =
     useFormAndValidation();
 
   const { name, link } = values;
@@ -23,8 +23,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       title='Новое место'
       isOpen={isOpen}
       onClose={onClose}
-      buttonTitle='Создать'
       isValid={isValid}
+      buttonTitle={isSending ? "Создание..." : "Создать" }
+      isDisabled={!isValid || isSending}
     >
       <fieldset className='popup__fild'>
         <input

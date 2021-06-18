@@ -24,7 +24,11 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
+    // переменная состояния, значением которой задается ссылка на карточку
+    const [selectedCard, setSelectedCard] = useState(null);
 
+  const [cardForDelete, setCardForDelete] = React.useState(null);
   const [isCardsLoading, setIsCardsLoading] = React.useState(false);
   const [isCardsLoadError, setIsCardsLoadError] = React.useState();
 
@@ -63,6 +67,17 @@ function App() {
     }
   }, [loggedIn]);
 
+   // функция закрытия попапов
+   function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsDeleteCardPopupOpen(false);
+    setSelectedCard(null);
+    setIsInfoTooltipOpen(false);
+    setCardForDelete(undefined);
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -78,20 +93,28 @@ function App() {
         console.log(err);
       });
   }
-  function handleCardDelete(card) {
+
+  function handleCardDeleteRequest(card) {
+    setCardForDelete(card);
+    setIsDeleteCardPopupOpen(true);
+  }
+
+
+  function handleCardDelete(evt) {
+    evt.preventDefault();
     // Отправляю запрос в API и получаю массив, исключив из него удалённую карточку
     api
-      .removeCard(card._id)
+      .removeCard(cardForDelete._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c._id !== cardForDelete._id));
+        setIsDeleteCardPopupOpen(false);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  // переменная состояния, значением которой задается ссылка на карточку
-  const [selectedCard, setSelectedCard] = useState(null);
+
 
   useEffect(() => {
     //функция закрытия попапов по Escape
@@ -130,28 +153,24 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  // функция закрытия попапов
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setSelectedCard(null);
-    setIsInfoTooltipOpen(false);
-  }
 
+ 
+  const [isUserSending, setIsUserSending] = React.useState(false);
   function handleUpdateUser({ name, about }) {
+    setIsUserSending(true);
     api
       .setProfileInfo({ name, about })
       .then((currentUserData) => {
         setCurrentUser(currentUserData);
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(`При обновлении информации о пользователе: ${err}`))
+      .finally(() => setIsUserSending(false));
   }
 
+  const [isAvatarSending, setIsAvatarSending] = React.useState(false);
   function handleUpdateAvatar({ avatar }, onSuccess) {
+    setIsAvatarSending(true);
     api
       .setUserAvatar({ avatar })
       .then((currentUserData) => {
@@ -159,12 +178,13 @@ function App() {
         onSuccess();
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(`При обновлении аватара: ${err}`))
+      .finally(() => setIsAvatarSending(false));
   }
 
+  const [isCardSending, setIsCardSending] = React.useState(false);
   function handleAddPlaceSubmit({ name, link }, onSuccess) {
+    setIsCardSending(true);
     api
       .addCard({ name, link })
       .then((newCard) => {
@@ -172,9 +192,8 @@ function App() {
         onSuccess();
         closeAllPopups();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(err => console.log(`Добавление карточки: ${err}`))
+      .finally(() => setIsCardSending(false));
   }
 
   
@@ -269,7 +288,7 @@ function App() {
                 onAddPlace={handleAddPlaceClick}
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
+                onCardDelete={handleCardDeleteRequest}
                 isCardsLoading={isCardsLoading}
                 isCardsError={isCardsLoadError}
               />
@@ -285,22 +304,19 @@ function App() {
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
               onUpdateUser={handleUpdateUser}
+              isSending={isUserSending}
             />
             <AddPlacePopup
               isOpen={isAddPlacePopupOpen}
               onClose={closeAllPopups}
               onAddPlace={handleAddPlaceSubmit}
+              isSending={isCardSending}
             />
             <EditAvatarPopup
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
               onUpdateAvatar={handleUpdateAvatar}
-            />
-            <PopupWithForm
-              name='confirm_form'
-              title='Вы уверены?'
-              onClose={closeAllPopups}
-              buttonTitle='Да'
+              isSending={isAvatarSending}
             />
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
@@ -308,6 +324,15 @@ function App() {
               isRegist={false}
             />
             <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+            <PopupWithForm 
+                isOpen={isDeleteCardPopupOpen} 
+                title="Вы уверены?" 
+                name="confirm" 
+                buttonTitle='Да' 
+                onSubmit={handleCardDelete} 
+                onClose={closeAllPopups}
+                buttonDisable = {false}
+              />
           </div>
         </div>
       </AppContext.Provider>

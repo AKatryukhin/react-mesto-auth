@@ -2,9 +2,9 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import useFormAndValidation from '../hooks/useFormAndValidation.js';
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isSending }) {
   const inputRef = React.useRef();
-  const { values, handleChange, errors,  isValid } = useFormAndValidation();
+  const { values, handleChange, errors,  isValid, resetForm } = useFormAndValidation();
 
   const { link } = values;
 
@@ -16,7 +16,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
           avatar: inputRef.current.value,
         },
         () => {
-          inputRef.current.value = '';
+          resetForm();
         }
       );
   }
@@ -28,8 +28,9 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       title='Обновить аватар'
       isOpen={isOpen}
       onClose={onClose}
-      buttonTitle='Сохранить'
       isValid={isValid}
+      buttonTitle={isSending ? "Сохранение..." : "Сохранить"}
+      isDisabled={!isValid || isSending}
     >
       <fieldset className='popup__fild'>
         <input
