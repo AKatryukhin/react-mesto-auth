@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import Preloader from "./Preloader";
+import Preloader from './Preloader';
 
 function Main({
   onEditAvatar,
@@ -11,7 +11,8 @@ function Main({
   cards,
   onCardLike,
   onCardDelete,
-  isCardsLoading
+  isCardsLoading,
+  isCardsError,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -45,22 +46,22 @@ function Main({
         ></button>
       </section>
       <section className='galery content__galery' aria-label='Фото мест'>
+        {isCardsLoading && <Preloader />}
 
-      {isCardsLoading && (
-          <Preloader />
-        )}
-
-        {!isCardsLoading && cards.map((card) => {
-          return (
-            <Card
-              key={card._id}
-              onCardClick={onCardClick}
-              card={card}
-              onCardLike={onCardLike}
-              onCardDelete={onCardDelete}
-            />
-          );
-        })}
+        {!isCardsLoading &&
+          !isCardsError &&
+          cards.map((card) => {
+            return (
+              <Card
+                key={card._id}
+                onCardClick={onCardClick}
+                card={card}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+                isCardsError={isCardsError}
+              />
+            );
+          })}
       </section>
     </main>
   );

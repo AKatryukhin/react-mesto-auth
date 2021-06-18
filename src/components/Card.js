@@ -1,7 +1,7 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   // Определяем, являемся ли мы владельцем текущей карточки
@@ -48,7 +48,9 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
           onClick={handleClick}
         />
         <figcaption className='photo__title'>
-          <h2 className='photo__name'>{card.name}</h2>
+          <h2 className='photo__name'>
+            {isCardsError ? isCardsError : card.name}
+          </h2>
           <div className='photo__like-container'>
             <button
               className={cardLikeButtonClassName}

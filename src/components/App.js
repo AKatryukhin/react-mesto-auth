@@ -26,6 +26,8 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   const [isCardsLoading, setIsCardsLoading] = React.useState(false);
+  const [isCardsLoadError, setIsCardsLoadError] = React.useState();
+
   const [isRegist, setIsRegist] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
@@ -50,14 +52,13 @@ function App() {
         .catch((err) => console.log(err));
 
         setIsCardsLoading(true);
+        setIsCardsLoadError();
       api
         .getInitialCards()
         .then((cardsData) => {
           setCards(cardsData);
         })
-        .catch((err) => {
-          console.log(err);
-        })
+        .catch(err => setIsCardsLoadError(err))
         .finally(() => setIsCardsLoading(false));
     }
   }, [loggedIn]);
@@ -270,6 +271,7 @@ function App() {
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
                 isCardsLoading={isCardsLoading}
+                isCardsError={isCardsLoadError}
               />
               <Route path='/signup'>
                 <Register handleRegister={handleRegister} />
