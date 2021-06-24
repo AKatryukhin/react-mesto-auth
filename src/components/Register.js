@@ -46,7 +46,7 @@ const Register = ({ handleRegister }) => {
           id='password'
           name='password'
           required
-          minLength='8'
+          minLength='6'
           maxLength='20'
           placeholder='Пароль'
           pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$'
