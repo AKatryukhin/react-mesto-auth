@@ -48,6 +48,8 @@ function Login({ handleLogin }) {
           required
           minLength='2'
           maxLength='200'
+          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+          title="Пожалуйста, укажите по крайней мере 1 заглавный символ, 1 строчный символ и 1 число."
           placeholder='Пароль'
           value={password || ''}
           onChange={handleChange}

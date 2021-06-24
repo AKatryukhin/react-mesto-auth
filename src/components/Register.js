@@ -47,6 +47,8 @@ const Register = ({ handleRegister }) => {
           minLength='8'
           maxLength='20'
           placeholder='Пароль'
+          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+          title="Пожалуйста, укажите по крайней мере 1 заглавный символ, 1 строчный символ и 1 число."
           value={password || ''}
           onChange={handleChange}
         />
