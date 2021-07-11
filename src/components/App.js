@@ -202,8 +202,7 @@ function App() {
     auth
       .register({ email, password })
       .then((data) => {
-        console.log(data.email)
-        setUserData({ email: data.data.email });
+        setUserData({ email: data.email });
         setIsRegist(true);
         handleInfoTooltipClick();
         onSuccess();
