@@ -13,8 +13,6 @@ export const register = ({ email, password }) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Credentials': true
-
     },
     body: JSON.stringify({ email, password }
       )})
