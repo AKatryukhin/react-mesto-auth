@@ -26,6 +26,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
+  const [isCardSending, setIsCardSending] = React.useState(false);
     // переменная состояния, значением которой задается ссылка на карточку
     const [selectedCard, setSelectedCard] = useState(null);
 
@@ -66,7 +67,7 @@ function App() {
         .catch(err => setIsCardsLoadError(err))
         .finally(() => setIsCardsLoading(false));
     }
-  }, [loggedIn]);
+  }, [loggedIn, isCardSending]);
 
    // функция закрытия попапов
    function closeAllPopups() {
@@ -186,7 +187,7 @@ function App() {
       .finally(() => setIsAvatarSending(false));
   }
 
-  const [isCardSending, setIsCardSending] = React.useState(false);
+ 
   function handleAddPlaceSubmit({ name, link }, onSuccess) {
     setIsCardSending(true);
     api
