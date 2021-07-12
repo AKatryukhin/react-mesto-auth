@@ -17,8 +17,7 @@ import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
 import * as auth from '../utils/auth';
-import unionyes from '../images/Union-yes.png';
-import unionno from '../images/Union-no.png';
+
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -228,17 +227,20 @@ function App() {
   const handleLogin = ({ email, password }, onSuccess) => {
     auth
       .authorize({ email, password })
-      .then(({ token }) => {
-        if ({ token }) {
-          localStorage.setItem('jwt', token);
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
         }
-        checkToken();
+        setUserData({ email: res.email });
+        // checkToken();
+        setLoggedIn(true);
         onSuccess();
         handleInfoTooltipClick();
         setInfoToolTipTitle({
-          icon: false,
+          icon: true,
           title: "Вы успешно авторизировались!",
         });
+        history.push('/main');
       })
       .catch((err) => {
         console.log(err);
@@ -250,32 +252,33 @@ function App() {
       });
   };
 
-  useEffect(() => {
-    checkToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   checkToken();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  const checkToken = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth
-        .getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            history.push('/main');
-            setUserData({ email: res.data.email });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
+  // const checkToken = () => {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+  //     auth
+  //       .getContent(jwt)
+  //       .then((res) => {
+  //         if (res) {
+  //           setLoggedIn(true);
+  //           history.push('/main');
+  //           setUserData({ email: res.data.email });
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
   const signOut = () => {
     localStorage.removeItem('jwt');
     history.push('/login');
+    setUserData({ email: "" });
     setLoggedIn(false);
   };
 

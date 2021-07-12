@@ -29,7 +29,7 @@ export const authorize = ({ email, password })  => {
     },
     body: JSON.stringify({ email, password })
   })
-  .then(handleResponse)
+  .then(handleResponse);
 };
 
 
