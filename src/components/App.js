@@ -226,7 +226,7 @@ function App() {
         onSuccess();
       })
       .catch((err) => {
-        console.log(err);
+        res.status(500).send({ message: `Внутренняя ошибка сервера: ${err}` });
         handleInfoTooltipClick();
       });
   };
