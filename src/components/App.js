@@ -17,6 +17,8 @@ import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { AppContext } from '../contexts/AppContext';
 import * as auth from '../utils/auth';
+import unionyes from '../images/Union-yes.png';
+import unionno from '../images/Union-no.png';
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -153,7 +155,10 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-
+  const [infoToolTipTitle, setInfoToolTipTitle] = useState({
+    title: "Что-то пошло не так! Попробуйте ещё раз.",
+    icon: false,
+  });
  
   const [isUserSending, setIsUserSending] = React.useState(false);
   function handleUpdateUser({ name, about }) {
@@ -205,6 +210,7 @@ function App() {
         setUserData({ email: data.email });
         setIsRegist(true);
         handleInfoTooltipClick();
+        setInfoToolTipTitle({ icon: true, title: "Вы успешно зарегистрировались!" });
         onSuccess();
         history.push('/signin');
       })
@@ -212,6 +218,10 @@ function App() {
         console.log(err);
         setIsRegist(false);
         handleInfoTooltipClick();
+        setInfoToolTipTitle({
+          icon: false,
+          title: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
       });
   };
 
@@ -219,15 +229,24 @@ function App() {
     auth
       .authorize({ email, password })
       .then(({ token }) => {
-        if ({ token }) {
-          localStorage.setItem('jwt', token);
-        }
+        // if ({ token }) {
+        //   localStorage.setItem('jwt', token);
+        // }
         checkToken();
         onSuccess();
+        handleInfoTooltipClick();
+        setInfoToolTipTitle({
+          icon: false,
+          title: "Вы успешно авторизировались!",
+        });
       })
       .catch((err) => {
         // res.status(500).send({ message: `Внутренняя ошибка сервера: ${err}` });
         handleInfoTooltipClick();
+        setInfoToolTipTitle({
+          icon: false,
+          title: "Что-то пошло не так! Попробуйте ещё раз.",
+        });
       });
   };
 
@@ -321,7 +340,8 @@ function App() {
             <InfoTooltip
               isOpen={isInfoTooltipOpen}
               onClose={closeAllPopups}
-              isRegist={false}
+              title={infoToolTipTitle.title}
+              icon={infoToolTipTitle.icon}
             />
             <ImagePopup onClose={closeAllPopups} card={selectedCard} />
             <PopupWithForm 
