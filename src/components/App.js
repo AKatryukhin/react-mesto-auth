@@ -234,10 +234,6 @@ function App() {
         setLoggedIn(true);
         onSuccess();
         handleInfoTooltipClick();
-        setInfoToolTipTitle({
-          icon: true,
-          title: "Вы успешно авторизировались!",
-        });
         history.push('/main');
       })
       .catch((err) => {
