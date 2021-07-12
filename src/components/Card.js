@@ -13,8 +13,8 @@ function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
   }`;
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-  const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
+  const isLiked = card.likes ?  card.likes.some((i) => i._id === currentUser._id) : false;
+  };
   // Создаём переменную, которую после зададим в `className` для кнопки лайка
   const cardLikeButtonClassName = `photo__like ${
     isLiked ? 'photo__like_type_active' : ''
@@ -58,7 +58,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete, isCardsError }) {
               aria-label='Кнопка для Лайков'
               onClick={handleLikeClick}
             />
-            <p className='photo__like-total'>{card.likes.length}</p>
+            <p className='photo__like-total'>{card.likes ? card.likes.length : '0'}</p>
           </div>
         </figcaption>
       </figure>
