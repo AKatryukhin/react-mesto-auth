@@ -200,8 +200,6 @@ function App() {
       .finally(() => setIsCardSending(false));
   }
 
-  
-
   const handleRegister = ({ email, password }, onSuccess) => {
     auth
       .register({ email, password })
@@ -232,7 +230,6 @@ function App() {
           localStorage.setItem('jwt', res.token);
         }
         setUserData({ email: res.email });
-        // checkToken();
         setLoggedIn(true);
         onSuccess();
         handleInfoTooltipClick();
@@ -251,29 +248,6 @@ function App() {
         });
       });
   };
-
-  // useEffect(() => {
-  //   checkToken();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const checkToken = () => {
-  //   const jwt = localStorage.getItem('jwt');
-  //   if (jwt) {
-  //     auth
-  //       .getContent(jwt)
-  //       .then((res) => {
-  //         if (res) {
-  //           setLoggedIn(true);
-  //           history.push('/main');
-  //           setUserData({ email: res.data.email });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // };
 
   const signOut = () => {
     localStorage.removeItem('jwt');
