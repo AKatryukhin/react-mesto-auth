@@ -229,9 +229,9 @@ function App() {
     auth
       .authorize({ email, password })
       .then(({ token }) => {
-        // if ({ token }) {
-        //   localStorage.setItem('jwt', token);
-        // }
+        if ({ token }) {
+          localStorage.setItem('jwt', token);
+        }
         checkToken();
         onSuccess();
         handleInfoTooltipClick();
@@ -241,7 +241,7 @@ function App() {
         });
       })
       .catch((err) => {
-        // res.status(500).send({ message: `Внутренняя ошибка сервера: ${err}` });
+        console.log(err);
         handleInfoTooltipClick();
         setInfoToolTipTitle({
           icon: false,
