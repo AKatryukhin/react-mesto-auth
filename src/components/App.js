@@ -61,7 +61,7 @@ function App() {
       api
         .getInitialCards()
         .then((cardsData) => {
-          setCards(cardsData);
+          setCards(cardsData.cards);
         })
         .catch(err => setIsCardsLoadError(err))
         .finally(() => setIsCardsLoading(false));

@@ -80,7 +80,7 @@ class Api {
 const api = new Api({
   address: 'https://api.mesto.front.nomoredomains.monster',
   headers: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    // authorization: `Bearer ${localStorage.getItem('jwt')}`,
 'Content-Type': 'application/json'
 }
 });
