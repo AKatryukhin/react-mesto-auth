@@ -192,8 +192,9 @@ function App() {
     setIsCardSending(true);
     api
       .addCard({ name, link })
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+      .then((res) => {
+        console.log(res.card)
+        setCards([res.card, ...cards]);
         onSuccess();
         closeAllPopups();
       })
