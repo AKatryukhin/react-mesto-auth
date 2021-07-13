@@ -67,7 +67,7 @@ function App() {
         .catch(err => setIsCardsLoadError(err))
         .finally(() => setIsCardsLoading(false));
     }
-  }, [loggedIn, isCardSending]);
+  }, [loggedIn]);
 
    // функция закрытия попапов
    function closeAllPopups() {
@@ -233,7 +233,6 @@ function App() {
         setUserData({ email: res.email });
         setLoggedIn(true);
         onSuccess();
-        handleInfoTooltipClick();
         history.push('/main');
       })
       .catch((err) => {
