@@ -242,12 +242,19 @@ function App() {
       });
   };
 
-  const signOut = () => {
-    localStorage.removeItem('jwt');
-    history.push('/login');
-    setUserData({ email: "" });
-    setLoggedIn(false);
-  };
+
+  function handleSignOut(email) {
+    auth
+      .logout(email)
+      .then(() => {
+        setLoggedIn(false);
+        setUserData({ email: "" });
+        history.push('/login');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -261,7 +268,7 @@ function App() {
       >
         <div className='background'>
           <div className='page'>
-            <Header onSignOut={signOut} />
+            <Header onSignOut={handleSignOut} />
             <Switch>
               <Route path='/signin'>
                 <Login handleLogin={handleLogin} />
