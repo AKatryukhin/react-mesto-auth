@@ -254,7 +254,7 @@ function App() {
       .logout(email)
       .then(() => {
         setLoggedIn(false);
-        setCurrentUser({ name: '', email: '' });
+        setUserData({ email: "" });
         history.push('/login');
       })
       .catch((err) => {
