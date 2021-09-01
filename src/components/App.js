@@ -36,10 +36,6 @@ function App() {
 
   const [isRegist, setIsRegist] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-  });
 
   // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = useState({});
@@ -165,8 +161,12 @@ function App() {
     setIsUserSending(true);
     api
       .setProfileInfo({ name, about })
-      .then((currentUserData) => {
-        setCurrentUser(currentUserData);
+      .then((res) => {
+        setCurrentUser({
+          ...currentUser,
+          name: res.name,
+          email: res.about,
+        });
         closeAllPopups();
       })
       .catch(err => console.log(`При обновлении информации о пользователе: ${err}`))
@@ -178,8 +178,11 @@ function App() {
     setIsAvatarSending(true);
     api
       .setUserAvatar({ avatar })
-      .then((currentUserData) => {
-        setCurrentUser(currentUserData);
+      .then((res) => {
+        setCurrentUser({
+          ...currentUser,
+          avatar: res.avatar,
+        });
         onSuccess();
         closeAllPopups();
       })
@@ -205,7 +208,9 @@ function App() {
     auth
       .register({ email, password })
       .then((data) => {
-        setUserData({ email: data.email });
+        setCurrentUser({
+          email: data.email,
+        });
         setIsRegist(true);
         handleInfoTooltipClick();
         setInfoToolTipTitle({ icon: true, title: "Вы успешно зарегистрировались!" });
@@ -227,7 +232,9 @@ function App() {
     auth
       .authorize({ email, password })
       .then((res) => {
-        setUserData({ email: res.email });
+        setCurrentUser({
+         email: res.email,
+        });
         setLoggedIn(true);
         onSuccess();
         history.push('/main');
@@ -242,18 +249,23 @@ function App() {
       });
   };
 
-  const signOut = () => {
-    localStorage.removeItem('jwt');
-    history.push('/login');
-    setUserData({ email: "" });
-    setLoggedIn(false);
-  };
+  function handleSignOut(email) {
+    auth
+      .logout(email)
+      .then(() => {
+        setLoggedIn(false);
+        setCurrentUser({ name: '', email: '' });
+        history.push('/login');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AppContext.Provider
         value={{
-          userData: userData,
           loggedIn: loggedIn,
           isRegist: isRegist,
           handleLogin: handleLogin,
@@ -261,7 +273,7 @@ function App() {
       >
         <div className='background'>
           <div className='page'>
-            <Header onSignOut={signOut} />
+            <Header onSignOut={handleSignOut} />
             <Switch>
               <Route path='/signin'>
                 <Login handleLogin={handleLogin} />

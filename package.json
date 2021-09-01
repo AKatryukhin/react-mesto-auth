@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* akatryukhin@130.193.41.233:/home/akatryukhin/frontend"
+    "deploy": "npm run build && scp -r ./build/* akatryukhin@178.154.192.200:/home/akatryukhin/frontend"
   },
   "eslintConfig": {
     "extends": [

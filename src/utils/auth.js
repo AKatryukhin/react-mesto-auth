@@ -7,6 +7,19 @@ const handleResponse = (res) => {
   return res.json();
 };
 
+export const logout = ({ email }) => {
+  return fetch(`${BASE_URL}/signout`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  }).then(handleResponse);
+};
+
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
