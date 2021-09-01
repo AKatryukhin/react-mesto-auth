@@ -18,7 +18,8 @@ https://akatryukhin.github.io/mesto-react/
 Реализована аутентификация пользователя, авторизация, работа с локальным хранилищем и jwt, встроенная валидация форм.
 https://akatryukhin.github.io/react-mesto-auth/
 
-
+Далее, функциональность сайта подключена к собственному разработанному бэкенду api.mesto.front.nomoredomains.monster.
+Фронтенд также размещен на сервере, домен mesto.front.nomoredomains.monster.
 
 
 
