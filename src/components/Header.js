@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../contexts/AppContext';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Header({ onSignOut }) {
   const value = React.useContext(AppContext);
