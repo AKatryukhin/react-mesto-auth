@@ -3,9 +3,11 @@ import { Route } from 'react-router-dom';
 import logo from '../images/header-logo.svg';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../contexts/AppContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Header({ onSignOut }) {
   const value = React.useContext(AppContext);
+  const user = React.useContext(CurrentUserContext);
 
   return (
     <header className='header page__header'>
@@ -16,7 +18,7 @@ function Header({ onSignOut }) {
       </label>
       <div className='header__link-container'>
         {value.loggedIn && (
-          <span className='header__user-mail'>{value.userData.email}</span>
+          <span className='header__user-mail'>{user.email}</span>
         )}
         <Route path='/signup'>
           <Link className='header__link' to='/signin'>
